@@ -9,42 +9,46 @@
 using namespace std;
 
 int main() {
-    unsigned char input; // User input
+    unsigned int input; // User input
     float hours; // Defines how long a vehicle has stayed at parking spot
     float price;
 
-    do { // Repeats until the user wants to quit the program.
-        cout << "\nWhat type of vehicle are you using? Or q to quit program.\n";
-        cout << "Options:\n[c] Car\n[b] Bus\n[t] Truck\n[q] Quit\n";
-        cout << "Input:";
-        cin >> input;
-        input = tolower(input);
+    enum CarType {Car, Bus, Truck, Quit};
 
-        if (input == 'q') { // Checks if the input is to quit
+    CarType carType;
+
+    do { // Repeats until the user wants to quit the program.
+        cout << "\nWhat type of vehicle are you using?\n";
+        cout << "Options:\n Car\n Bus\n Truck\n Quit\n";
+        cout << "Input: ";
+        cin >> input;
+        carType = (CarType)input;
+
+        if (input == Quit) { // Checks if the input is to quit
             cout << "Goodbye!";
             break;
         }
         cout << "How many hours parked?:"; // Asks the user to enter how many hours vehicle was parked for
         cin >> hours;
 
-        switch (input) { // Runs the appropriate calculations for each vehicle type and price per hour
-            case 'c':
+        switch (carType) { // Runs the appropriate calculations for each vehicle type and price per hour
+            case Car:
                 price = 2 * hours; // Car: $2 per hour
                 printf("Total to be charged: $%.2f", price);
                 break;
-            case 'b':
+            case Bus:
                 price = 3 * hours; // Bus: $3 per hour
                 printf("Total to be charged: $%.2f", price);
                 break;
-            case 't':
+            case Truck:
                 price = 4 * hours; // Truck: $4 per hour
                 printf("Total to be charged: $%.2f", price);
                 break;
             default:
-                cout << "[WARN]: Please enter a valid input [c, b, t, q]!\n";
+                cout << "[WARN]: Please enter a valid input!\n";
                 break;
         }
-    } while (input != 'q');
+    } while (input != Quit);
 
     return 0;
 }
